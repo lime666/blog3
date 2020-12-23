@@ -10,6 +10,14 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comment = Comment.new
+    @comment.post_id = @post.id
+    @comment_status = params[:comments_status].to_s.downcase
+    @comments = if @comment_status == 'not_visible'
+                  @post.comments.not_visible
+                else
+                  @post.comments.visible
+                end
   end
 
   # GET /posts/new
@@ -69,6 +77,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:name, :title, :content, :image)
+      params.require(:post).permit(:name, :title, :content, :image, :author_id)
     end
 end
