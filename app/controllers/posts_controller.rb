@@ -13,10 +13,10 @@ class PostsController < ApplicationController
     @comment = Comment.new
     @comment.post_id = @post.id
     @comment_status = params[:comments_status].to_s.downcase
-    @comments = if @comment_status == 'not_visible'
-                  @post.comments.not_visible
+    @comments = if @comment_status == 'unpublished'
+                  @post.comments.unpublished
                 else
-                  @post.comments.visible
+                  @post.comments.published
                 end
   end
 
@@ -66,6 +66,14 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def count_views
+    if show
+      @views_count += 1
+    else
+      @views_count
     end
   end
 

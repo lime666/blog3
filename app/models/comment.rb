@@ -2,8 +2,8 @@ class Comment < ApplicationRecord
   validates :body, presence: true
   validates :status, presence: true
 
-  belongs_to :post
+  belongs_to :post, counter_cache: true
   belongs_to :author
 
-  enum status: [:visible, :not_visible], _default: "not_visible"
+  enum status: [:published, :unpublished], _default: "unpublished"
 end

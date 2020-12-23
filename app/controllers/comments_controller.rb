@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
   def publish
     find_post
     set_comment
-    @comment.update(status: :visible)
+    @comment.update(status: :published)
     respond_to do |format|
       format.html { redirect_to post_path(@comment.post), notice: 'Comment was successfully published.' }
     end

@@ -31,6 +31,9 @@
 <%= render partial: 'comments/form' %>
 <br>
 <h3>Comments (<%= @post.comments.size %>)</h3>
-<%= render partial: 'posts/comment', collection: @post.comments.reverse %>
+<form action="<%= post_path(@post) %>" method='get' id='comments_show'>
+  <%= render partial: 'posts/comment', collection: @post.comments.reverse %>
+</form>
+
 </div>
 
