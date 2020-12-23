@@ -1,8 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<h3>Comments (<%= @post.comments.size %>)</h3>
-<%= render partial: 'posts/comment', collection: @post.comments.reverse %>
-
 <h1 align="center"><%= @post.title %></h1>
 
 <p align="center">
@@ -31,9 +28,9 @@
   <%= link_to 'Back', posts_path %>
 <br>
 <br>
-<h4>Comments</h4>
 <%= render partial: 'comments/form' %>
 <br>
-<%= render partial: 'comments/list' %>
+<h3>Comments (<%= @post.comments.size %>)</h3>
+<%= render partial: 'posts/comment', collection: @post.comments.reverse %>
 </div>
 

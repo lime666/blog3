@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
   def create
     find_post
     @comment = @post.comments.create(comment_params)
+    @comment.save!
     if @comment.persisted?
       { notice: 'Comment was successfully created.' }
     else
@@ -52,6 +53,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body, :status)
+    params.require(:comment).permit(:body, :author_id)
   end
 end
