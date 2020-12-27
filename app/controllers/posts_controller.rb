@@ -18,6 +18,7 @@ class PostsController < ApplicationController
                 else
                   @post.comments.published
                 end
+    @post.increment(:views_count)
   end
 
   # GET /posts/new
