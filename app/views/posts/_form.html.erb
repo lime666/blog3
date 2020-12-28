@@ -31,7 +31,9 @@
     <%= form.text_field :image %>
   </div>
 
-  <%= form.collection_select(:authors, Author.all, :id, :full_name) %>
+  <div class='field'>
+    <%= form.select(:author_id, Author.all.collect {|a| [ a.full_name, a.id ] }, {}, {:class => "select_author"}) %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

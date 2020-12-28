@@ -1,6 +1,5 @@
-<h3>Post a Comment</h3>
-
-<%= form_for [ @post, @comment ] do |f| %>
+<% @comment ||= @post.comments.create%>
+<%= form_with model: [ @post, @comment ] do |f| %>
   <p>
   <div class='field'>
     <%= f.select(:author_id, Author.all.collect {|a| [ a.full_name, a.id ] }, {}, {:class => "select_author"}) %>
@@ -12,7 +11,7 @@
   </p>
   <p>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit%>
   </div>
   </p>
 <% end %>

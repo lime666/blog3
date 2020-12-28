@@ -1,17 +1,20 @@
 <% @comments.each do |comment| %>
-    <div>
-      <%= comment.body %>
+  <h4>Comment by <%= comment.author.full_name %></h4>
+  <p>Posted <%= distance_of_time_in_words(comment.created_at, Time.now) %> ago</p>
+  <p><%= comment.body %></p>
+  <% if comment.status == 'unpublished' %>
+    <div class="btn btn-outline-dark">
+      <%= link_to 'Publish Comment', publish_post_comment_path(@post.id, comment.id), method: :post %>
     </div>
-    <p>
-      <b><%= comment.author.full_name %></b>
-    </p>
-    <div>
-      <i>  updated <%= distance_of_time_in_words(comment.updated_at, Time.now) %> ago</i>
-    </div>
-    <button class='btn btn-warning edit_comment'>Edit Comment</button>
-    <div class='cont add_comment update_comment invisible'>
-      <h4>Edit Comment</h4>
-      <%= render 'comments/form', comment: comment%>
-    </div>
-
+  <% end %>
+  <h4>Edit Comment</h4>
+  <div>
+    <%= render 'comments/form', comment: comment%>
+  </div>
+  <div class="btn btn-outline-danger">
+    <%= link_to 'Destroy Comment', [comment.post, @comment],
+                method: :delete,
+                data: { confirm: "Are you sure?" } %>
+  </div>
 <% end %>
+

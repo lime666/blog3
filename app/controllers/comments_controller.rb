@@ -9,7 +9,6 @@ class CommentsController < ApplicationController
   def create
     find_post
     @comment = @post.comments.create(comment_params)
-    @comment.save!
     if @comment.persisted?
       { notice: 'Comment was successfully created.' }
     else
@@ -20,7 +19,6 @@ class CommentsController < ApplicationController
 
   def update
     find_post
-    set_comment
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to post_path(@comment.post), notice: 'Comment was successfully updated.' }
@@ -30,7 +28,6 @@ class CommentsController < ApplicationController
 
   def destroy
     find_post
-    set_comment
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to @post, notice: 'Comment was successfully destroyed.' }
@@ -39,7 +36,6 @@ class CommentsController < ApplicationController
 
   def publish
     find_post
-    set_comment
     @comment.update(status: :published)
     respond_to do |format|
       format.html { redirect_to post_path(@comment.post), notice: 'Comment was successfully published.' }
