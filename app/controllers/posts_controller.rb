@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authorize, only: [:create, :edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -16,7 +17,7 @@ class PostsController < ApplicationController
                 else
                   @post.comments.published
                 end
-    @post.increment(:views_count)
+    @post.increment!(:views_count)
   end
 
   # GET /posts/new

@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:update, :destroy]
-
+  before_action :authorize
 
   def find_post
     @post = Post.find(params[:post_id])
@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
       { notice: 'Comment was not created.' }
     end
     redirect_to post_path(@comment.post)
+    @comments = Comment.find_all(@comment.post)
   end
 
   def update
